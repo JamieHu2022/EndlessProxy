@@ -370,3 +370,6 @@ body {
   backdrop-filter:blur(10px);
 }
 #toast.show { opacity:1; }
+ 
+/* ── MIMS iframe panel ── */
+#mims-panel { flex: 1; }
