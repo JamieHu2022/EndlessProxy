@@ -6,6 +6,13 @@ const port = 8080;
 
 //process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
+const headers = {
+	headers: {
+		"User-Agent": "Mozilla/5.0",
+		"Accept-Encoding": "gzip, br"
+	}
+}
+
 const requestListener = function(req, res) {
     const url = new URL(`http://${req.host ?? "localhost"}${req.url}`);
     const urlParam = url.searchParams.get('url');
@@ -16,13 +23,8 @@ const requestListener = function(req, res) {
         console.log(pUrl.protocol);
         if (pUrl.protocol == "https:") protocol = https;
         protocol.get(pUrl, (pRes) => {
-            pRes.setEncoding('utf8');
-            let rawData = "";
-            pRes.on('data', (chunk) => {rawData += chunk});
-            pRes.on('end', () => {
-                res.writeHead(200);
-                res.end(rawData);
-            });
+			res.writeHead(pRes.statusCode,pRes.headers);
+			res.pipe(pRes);
         });
     } catch (err) {
         console.log(err);
