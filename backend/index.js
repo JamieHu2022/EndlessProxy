@@ -38,12 +38,14 @@ const requestListener = function(req, res) {
     }
 };
 
+/* https
 const options = {
     key: fs.readFileSync('key.pem'),
     cert: fs.readFileSync('cert.pem'),
 };
+ */
 
-const server = https.createServer(options, requestListener);
+const server = http.createServer(requestListener);
 
 server.listen(port, host, () => {
     console.log("Server running");
