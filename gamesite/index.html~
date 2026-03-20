@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+<script>
+
+// games lol games games
+
+let statusMessage = document.getElementById('status');
+
+async function initialFetch() {
+    const location = "/backend/index.json";
+    try {
+        const resp = await fetch(location);
+        if (!resp.ok) throw new Error(`Resp failed! ${resp.status}`);
+        const result = await resp.json();
+        console.log("hello world");
+        load(result);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+function load(result) {
+    const apps = document.getElementById("applications");
+    result.forEach(element => {
+        let div = document.createElement("div");
+        div.classList.add("app")
+
+        let img = document.createElement("img");
+        img.src = element.img;
+        div.appendChild(img);
+
+        let title = document.createElement("h1");
+        title.innerHTML = element.title;
+        div.appendChild(title);
+
+        apps.appendChild(div);
+    });
+}
+
+initialFetch()
+
+</script>
+
+<div id="applications">
+
+</div>
+
+</body>
+</html>
