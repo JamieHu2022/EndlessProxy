@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;500&family=Pacifico&display=swap');
+@import url('https:
 
 :root {
   --cyan: #00e5ff;
@@ -11,7 +11,7 @@
   --text-main: #e0f7fa;
 }
 
-/* ── Summer City Theme ── */
+
 body.summer-city {
   --cyan: #d4820a;
   --cyan-dim: #b86e08;
@@ -154,7 +154,7 @@ body.summer-city .ctx-item { color: rgba(10,40,80,0.85); }
 body.summer-city .ctx-item:hover { background: rgba(200,130,10,0.12); color: #0d2540; }
 body.summer-city .tab-ctx-sep,.summer-city .bm-sep { background: rgba(0,0,0,0.1); }
 
-/* ── Winter City Theme ── */
+
 body.winter-city {
   --cyan: #a8d8f0;
   --cyan-dim: #7ec8e8;
@@ -279,7 +279,7 @@ body.winter-city #modal-save { background: #a8d8f0; color: #0d1a2e; }
 body.winter-city #modal-save:hover { background: #c8e8f8; box-shadow: 0 0 16px rgba(168,216,240,0.5); }
 body.winter-city #panel-scrim { background: rgba(5,15,30,0.45); }
 
-/* ── Fall City Theme ── */
+
 body.fall-city {
   --cyan: #c8601a;
   --cyan-dim: #a84f12;
@@ -406,7 +406,7 @@ body.fall-city #panel-scrim { background:rgba(10,5,0,0.45); }
 body.fall-city .ctx-item { color:rgba(240,210,160,0.85); }
 body.fall-city .ctx-item:hover { background:rgba(200,96,26,0.12); color:#f0d8b0; }
 
-/* ── Spring City Theme ── */
+
 body.spring-city {
   --cyan: #3aaa5a;
   --cyan-dim: #2d8a48;
@@ -440,7 +440,7 @@ body.spring-city .tab-add:hover { background:rgba(0,0,0,0.07); color:rgba(10,50,
 body.spring-city .proxy-title { color:#2a9448; text-shadow:0 0 14px rgba(58,170,90,0.9),0 0 40px rgba(58,170,90,0.45),0 2px 5px rgba(0,0,0,0.2); }
 body.spring-city #home-clock { color:rgba(42,148,72,0.75); text-shadow:0 1px 3px rgba(0,0,0,0.15); }
 body.spring-city #home-date { color:rgba(42,148,72,0.5); }
-/* Fix new UI elements that use hardcoded dark text on spring's light bg */
+
 body.spring-city .more-item { color:rgba(10,50,25,0.85); }
 body.spring-city .more-item:hover { background:rgba(58,170,90,0.12); color:#1a7a38; }
 body.spring-city .more-sep { background:rgba(0,0,0,0.08); }
@@ -513,7 +513,7 @@ body.spring-city #panel-scrim { background:rgba(180,220,190,0.4); }
 body.spring-city .ctx-item { color:rgba(10,50,25,0.85); }
 body.spring-city .ctx-item:hover { background:rgba(58,170,90,0.1); color:#0d3320; }
 
-/* ── Sand City Theme ── */
+
 body.sand-city {
   --cyan: #8B5E1A;
   --cyan-dim: #6e4a12;
@@ -614,7 +614,7 @@ body.sand-city .ctx-item { color:rgba(240,216,160,0.85); }
 body.sand-city .ctx-item:hover { background:rgba(139,94,26,0.14); color:#f0d8a0; }
 body.sand-city .tab-ctx-sep { background:rgba(255,255,255,0.07); }
 
-/* ── Radioactive City Theme ── */
+
 body.radioactive-city {
   --cyan: #39ff14;
   --cyan-dim: #28cc0f;
@@ -715,7 +715,7 @@ body.radioactive-city .ctx-item { color:rgba(184,255,176,0.85); }
 body.radioactive-city .ctx-item:hover { background:rgba(57,255,20,0.12); color:#b8ffb0; }
 body.radioactive-city .tab-ctx-sep { background:rgba(57,255,20,0.08); }
 
-/* ── Thunder City Theme ── */
+
 body.thunder-city {
   --cyan: #6488ff;
   --cyan-dim: #4a6ee0;
@@ -816,7 +816,7 @@ body.thunder-city .ctx-item { color:rgba(192,208,255,0.85); }
 body.thunder-city .ctx-item:hover { background:rgba(100,136,255,0.12); color:#c0d0ff; }
 body.thunder-city .tab-ctx-sep { background:rgba(100,136,255,0.08); }
 
-/* ── Grass City Theme ── */
+
 body.grass-city {
   --cyan: #3cb41e;
   --cyan-dim: #2d8c16;
@@ -934,7 +934,7 @@ body {
   position: fixed; inset:0; width:100%; height:100%; z-index:0;
 }
 
-/* ── Browser Chrome ── */
+
 .browser-chrome {
   position: relative; z-index: 10;
   background: var(--chrome-bg);
@@ -942,7 +942,7 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.7);
 }
 
-/* Tab bar */
+
 .tab-bar {
   display:flex; align-items:flex-end;
   padding:6px 10px 0 10px; gap:2px;
@@ -990,7 +990,7 @@ body {
 .tab-inactive::after { display:none; }
 .tab-inactive:hover { background:rgba(255,255,255,0.05); }
 
-/* Pinned tab — narrow, icon only */
+
 .tab.pinned {
   min-width:40px; max-width:40px; padding:0 10px;
   justify-content:center;
@@ -998,7 +998,7 @@ body {
 .tab.pinned .tab-title { display:none; }
 .tab.pinned .tab-close { display:none; }
 
-/* Dragging ghost */
+
 .tab.dragging {
   opacity:0.35; transform:scale(0.95);
   cursor:grabbing !important;
@@ -1008,7 +1008,7 @@ body {
   box-shadow:inset 2px 0 8px rgba(0,229,255,0.3);
 }
 
-/* Tab context menu */
+
 #tab-ctx-menu {
   display:none; position:fixed; z-index:9999;
   background:rgba(8,20,35,0.97);
@@ -1037,7 +1037,7 @@ body {
 }
 .tab-add:hover { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.8); }
 
-/* Nav bar */
+
 .nav-bar {
   display:flex; align-items:center;
   padding:5px 10px; gap:6px; height:42px;
@@ -1070,7 +1070,7 @@ body {
 #nav-globe-icon { fill:rgba(255,255,255,0.3); }
 .nav-right { display:flex; gap:2px; flex-shrink:0; }
 
-/* Clock widget */
+
 #home-clock {
   font-family:'Orbitron',monospace;
   font-size:clamp(0.85rem,2vw,1.1rem);
@@ -1080,7 +1080,7 @@ body {
   user-select:none; margin-top:-8px;
 }
 
-/* Tab loading indicator */
+
 .tab.loading { overflow:visible; }
 .tab.loading::before {
   content:''; position:absolute; bottom:-1px; left:0;
@@ -1093,7 +1093,7 @@ body {
   to   { width:80%; left:10%; }
 }
 
-/* Panel section headers */
+
 .panel-section-title {
   font-size:11px; color:rgba(255,255,255,0.4);
   text-transform:uppercase; letter-spacing:1px;
@@ -1101,17 +1101,17 @@ body {
   border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-/* Split screen URL bar focus ring */
+
 .split-url-bar:focus {
   border-color:rgba(0,229,255,0.5);
   box-shadow:0 0 0 2px rgba(0,229,255,0.1);
   color:#fff;
 }
 
-/* Bookmark star filled state */
+
 .nav-btn.bookmarked svg { fill:#ffd600; filter:drop-shadow(0 0 4px rgba(255,214,0,0.5)); }
 
-/* Bookmarks bar */
+
 .bookmarks-bar {
   display:flex; align-items:center;
   padding:3px 10px; gap:2px; height:30px;
@@ -1144,16 +1144,16 @@ body {
 }
 .bm-add-btn:hover { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); }
 
-/* Content */
+
 .content-area { position:relative; z-index:5; flex:1; overflow:hidden; display:flex; }
 
-/* Split screen layout */
+
 .split-pane {
   position:relative; flex:1; overflow:hidden; display:flex; flex-direction:column;
   transition:flex 0.25s ease;
 }
 
-/* Right pane — fixed, starts below browser chrome */
+
 #pane-right {
   position:fixed !important;
   top:var(--chrome-height, 80px); bottom:0;
@@ -1165,7 +1165,7 @@ body {
   box-shadow:-4px 0 24px rgba(0,0,0,0.6);
 }
 
-/* Divider — also fixed, starts below chrome */
+
 #split-divider {
   display:none;
   position:fixed;
@@ -1185,7 +1185,7 @@ body {
   background:rgba(0,229,255,0.5);
 }
 
-/* Split pane toolbar */
+
 .split-toolbar {
   display:none; align-items:center; gap:6px;
   padding:4px 8px; height:32px;
@@ -1219,7 +1219,7 @@ body {
 }
 .split-swap-btn:hover { background:rgba(0,229,255,0.15); color:var(--cyan); }
 
-/* Nav split button active state */
+
 .nav-btn.split-on svg { fill:var(--cyan); }
 
 .page {
@@ -1236,7 +1236,7 @@ body {
   width:100%; height:100%; border:none; display:block;
 }
 
-/* Title */
+
 .proxy-title {
   font-family:'Orbitron',monospace;
   font-size:clamp(2rem,5vw,3.2rem);
@@ -1250,7 +1250,7 @@ body {
   0%,94%,100%{opacity:1}95%{opacity:0.8}96%{opacity:1}97.5%{opacity:0.65}98.5%{opacity:1}
 }
 
-/* Search */
+
 .search-wrap { width:min(720px,85vw); position:relative; }
 .search-bar-wrap {
   display:flex; align-items:center; gap:12px;
@@ -1290,7 +1290,7 @@ body {
 }
 .suggestion-item:hover,.suggestion-item:focus { background:rgba(0,229,255,0.1); outline:none; color:#fff; }
 
-/* Shortcuts */
+
 .shortcuts { width:min(900px,90vw); padding:10px 32px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; }
 .shortcut { display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; padding:12px 16px; border-radius:12px; transition:background 0.2s,transform 0.15s; position:relative; overflow:hidden; min-width:80px; user-select:none; }
 .shortcut:hover { background:rgba(0,229,255,0.07); transform:translateY(-2px); }
@@ -1306,7 +1306,7 @@ body {
 #add-shortcut-btn:hover { background:rgba(0,229,255,0.15); box-shadow:0 0 16px rgba(0,229,255,0.2); transform:translateY(-1px); }
 #add-shortcut-btn span { font-size:18px; line-height:1; }
 
-/* ── Panels (downloads, extensions, bookmarks mgr) ── */
+
 .side-panel {
   position:fixed; top:0; right:0; bottom:0;
   width:360px; max-width:90vw;
@@ -1340,7 +1340,7 @@ body {
 .panel-body::-webkit-scrollbar { width:4px; }
 .panel-body::-webkit-scrollbar-thumb { background:rgba(0,229,255,0.2); border-radius:4px; }
 
-/* Download items */
+
 .dl-item {
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.07);
@@ -1362,7 +1362,7 @@ body {
 }
 .dl-btn:hover { background:rgba(0,229,255,0.15); }
 
-/* Extension items */
+
 .ext-item {
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.07);
@@ -1396,7 +1396,7 @@ body {
 }
 .ext-action-btn:hover { background:rgba(0,229,255,0.12); color:var(--cyan); }
 
-/* Bookmarks manager */
+
 .bm-manager-item {
   display:flex; align-items:center; gap:10px;
   padding:9px 12px; border-radius:8px;
@@ -1409,11 +1409,11 @@ body {
 .bm-manager-item .bm-del { font-size:12px; color:rgba(255,255,255,0.25); cursor:pointer; padding:2px 6px; border-radius:4px; transition:background 0.15s,color 0.15s; }
 .bm-manager-item .bm-del:hover { background:rgba(255,50,50,0.15); color:#ff6b6b; }
 
-/* Panel empty state */
+
 .panel-empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.25); font-size:13px; }
 .panel-empty .pe-icon { font-size:36px; display:block; margin-bottom:10px; }
 
-/* Panel input */
+
 .panel-input-row { display:flex; gap:8px; padding:12px 0 4px; }
 .panel-input {
   flex:1; background:rgba(255,255,255,0.06);
@@ -1434,7 +1434,7 @@ body {
 }
 .panel-btn:hover { background:#00f5ff; box-shadow:0 0 12px rgba(0,229,255,0.4); }
 
-/* Dropdown (badge) */
+
 .badge {
   position:absolute; top:2px; right:2px;
   width:14px; height:14px; border-radius:50%;
@@ -1444,7 +1444,7 @@ body {
   pointer-events:none;
 }
 
-/* Context menu & modal (same as before) */
+
 #ctx-menu {
   display:none; position:fixed; z-index:9999;
   background:rgba(8,20,35,0.97);
@@ -1488,13 +1488,13 @@ body {
 }
 #toast.show { opacity:1; }
 
-/* Overlay scrim for panels */
+
 #panel-scrim {
   display:none; position:fixed; inset:0; z-index:499;
   background:rgba(0,0,0,0.3);
 }
 #panel-scrim.show { display:block; }
-/* ── Keyboard shortcut rows ── */
+
 .sk-row {
   display:flex; align-items:center; gap:10px;
   padding:7px 0; font-family:'Rajdhani',sans-serif; font-size:13px; color:rgba(255,255,255,0.65);
@@ -1506,7 +1506,7 @@ body {
   min-width:68px; text-align:center;
 }
 
-/* ── Tab search result items ── */
+
 .ts-item {
   display:flex; align-items:center; gap:12px; padding:10px 16px;
   cursor:pointer; transition:background 0.1s;
@@ -1518,7 +1518,7 @@ body {
 .ts-item-active { background:rgba(0,229,255,0.05); }
 .ts-active-pill { background:rgba(0,229,255,0.15); border:1px solid rgba(0,229,255,0.3); border-radius:10px; padding:1px 7px; font-size:10px; color:var(--cyan); margin-left:auto; flex-shrink:0; }
 
-/* ── History items ── */
+
 .hist-date-header {
   font-size:10px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1.5px;
   padding:12px 4px 6px; font-family:'Orbitron',monospace;
@@ -1534,19 +1534,19 @@ body {
 .hist-item-del { padding:2px 6px; border-radius:4px; font-size:11px; color:rgba(255,255,255,0.2); cursor:pointer; transition:background 0.1s,color 0.1s; }
 .hist-item-del:hover { background:rgba(255,60,60,0.15); color:#ff7070; }
 
-/* ── Date display on home ── */
+
 #home-date {
   font-family:'Rajdhani',sans-serif; font-size:13px; font-weight:500;
   color:rgba(0,229,255,0.35); letter-spacing:3px; text-transform:uppercase;
   user-select:none; margin-top:-16px;
 }
 
-/* ── Improved tab hover glow ── */
+
 .tab:not(.tab-inactive):hover::after {
   box-shadow:0 0 14px var(--cyan), 0 0 28px rgba(0,229,255,0.4);
 }
 
-/* ── More menu dropdown ── */
+
 #more-dropdown {
   background: var(--chrome-bg);
   border: 1px solid rgba(0,229,255,0.18);
@@ -1565,7 +1565,7 @@ body {
 .more-item:hover svg { opacity:1; }
 .more-sep { height:1px; background:rgba(255,255,255,0.07); margin:3px 0; }
 
-/* Per-theme dropdown accents */
+
 body.winter-city     #more-dropdown { border-color:rgba(168,216,240,0.25); }
 body.winter-city     .more-item:hover { background:rgba(168,216,240,0.1); }
 body.winter-city     .more-sep { background:rgba(168,216,240,0.08); }
@@ -1585,7 +1585,7 @@ body.grass-city      #more-dropdown { border-color:rgba(60,180,30,0.28); }
 body.grass-city      .more-item:hover { background:rgba(60,180,30,0.12); }
 body.grass-city      .more-sep { background:rgba(60,180,30,0.09); }
 
-/* ── Themes panel ── */
+
 .theme-grid-panel {
   display:grid; grid-template-columns:1fr 1fr;
   gap:8px; padding:4px 0;
@@ -1603,7 +1603,7 @@ body.grass-city      .more-sep { background:rgba(60,180,30,0.09); }
 .theme-btn-large.active { border-color:var(--cyan); color:var(--cyan); background:rgba(0,229,255,0.1); box-shadow:0 0 12px rgba(0,229,255,0.15); }
 .theme-btn-large .theme-icon { font-size:22px; line-height:1; }
 
-/* ── Help button in tab bar ── */
+
 #btn-help {
   margin-left:auto; flex-shrink:0;
   width:22px; height:22px; border-radius:50%;
@@ -1614,7 +1614,7 @@ body.grass-city      .more-sep { background:rgba(60,180,30,0.09); }
 }
 #btn-help:hover { background:rgba(0,229,255,0.1); color:rgba(0,229,255,0.7); }
 
-/* ── Address bar input overlay ── */
+
 #addr-overlay {
   display:none; position:fixed; z-index:9000;
   left:0; right:0; top:0; bottom:0;
