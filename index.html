@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endless Proxy</title>
+  <script src="https:
+  <link rel="stylesheet" href="endless_proxy.css">
+</head>
+<body>
+
+<canvas id="city-canvas"></canvas>
+
+
+<div id="panel-scrim"></div>
+
+
+<div class="side-panel" id="panel-downloads">
+  <div class="panel-header">
+    <span class="panel-title">DOWNLOADS</span>
+    <div class="panel-close" onclick="closePanel('downloads')">✕</div>
+  </div>
+  <div class="panel-body" id="downloads-body"></div>
+</div>
+
+
+<div class="side-panel" id="panel-extensions">
+  <div class="panel-header">
+    <span class="panel-title">EXTENSIONS</span>
+    <div class="panel-close" onclick="closePanel('extensions')">✕</div>
+  </div>
+  <div class="panel-body" id="extensions-body"></div>
+</div>
+
+
+<div class="side-panel" id="panel-bookmarks">
+  <div class="panel-header">
+    <span class="panel-title">BOOKMARKS</span>
+    <div class="panel-close" onclick="closePanel('bookmarks')">✕</div>
+  </div>
+  <div class="panel-body" id="bookmarks-body"></div>
+</div>
+
+
+<div class="side-panel" id="panel-history">
+  <div class="panel-header">
+    <span class="panel-title">HISTORY</span>
+    <div class="panel-close" onclick="closePanel('history')">✕</div>
+  </div>
+  <div class="panel-body" id="history-body"></div>
+</div>
+
+
+<div class="side-panel" id="panel-themes">
+  <div class="panel-header">
+    <span class="panel-title">THEMES</span>
+    <div class="panel-close" onclick="closePanel('themes')">✕</div>
+  </div>
+  <div class="panel-body" id="themes-body"></div>
+</div>
+
+
+<div id="shortcuts-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <div id="shortcuts-modal" style="background:rgba(8,18,32,0.98);border:1px solid rgba(0,229,255,0.25);border-radius:20px;padding:32px 40px;width:min(520px,92vw);box-shadow:0 0 60px rgba(0,229,255,0.12),0 24px 80px rgba(0,0,0,0.7);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <div style="font-family:'Orbitron',monospace;font-size:14px;color:var(--cyan);letter-spacing:3px;">KEYBOARD SHORTCUTS</div>
+      <div id="shortcuts-overlay-close" style="width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.4);font-size:16px;transition:background 0.15s;">✕</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <div class="sk-row"><kbd>Ctrl+T</kbd><span>New tab</span></div>
+      <div class="sk-row"><kbd>Ctrl+W</kbd><span>Close tab</span></div>
+      <div class="sk-row"><kbd>Ctrl+L</kbd><span>Focus address bar</span></div>
+      <div class="sk-row"><kbd>Ctrl+R</kbd><span>Reload page</span></div>
+      <div class="sk-row"><kbd>Alt+←</kbd><span>Go back</span></div>
+      <div class="sk-row"><kbd>Alt+→</kbd><span>Go forward</span></div>
+      <div class="sk-row"><kbd>Ctrl+D</kbd><span>Bookmark page</span></div>
+      <div class="sk-row"><kbd>Ctrl+H</kbd><span>Open history</span></div>
+      <div class="sk-row"><kbd>Ctrl+B</kbd><span>Toggle bookmarks bar</span></div>
+      <div class="sk-row"><kbd>Ctrl+\</kbd><span>Toggle split screen</span></div>
+      <div class="sk-row"><kbd>Esc</kbd><span>Close panel / overlay</span></div>
+      <div class="sk-row"><kbd>Ctrl+?</kbd><span>This help screen</span></div>
+    </div>
+  </div>
+</div>
+
+
+<div id="tab-search-overlay" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding-top:80px;">
+  <div style="background:rgba(8,18,32,0.98);border:1px solid rgba(0,229,255,0.22);border-radius:16px;width:min(480px,90vw);overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,0.7);">
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(0,229,255,0.1);">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="rgba(0,229,255,0.5)"><path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h7v-2H3v2zm16 0h2v-8h-2v3h-2v2h2v3z"/></svg>
+      <input id="tab-search-input" placeholder="Search open tabs…" autocomplete="off" style="flex:1;background:transparent;border:none;outline:none;font-size:14px;color:rgba(255,255,255,0.85);font-family:'Rajdhani',sans-serif;caret-color:var(--cyan);">
+      <span style="font-size:11px;color:rgba(255,255,255,0.25);">Esc to close</span>
+    </div>
+    <div id="tab-search-results" style="max-height:320px;overflow-y:auto;"></div>
+  </div>
+</div>
+
+
+<div id="ctx-menu">
+  <div class="ctx-item" id="ctx-edit"> Edit Shortcut</div>
+  <div class="ctx-item" id="ctx-remove"> Remove</div>
+</div>
+
+
+<div id="tab-ctx-menu">
+  <div class="tab-ctx-item" id="tctx-switch"> Switch to tab</div>
+  <div class="tab-ctx-item" id="tctx-rename"> Rename tab</div>
+  <div class="tab-ctx-sep"></div>
+  <div class="tab-ctx-item" id="tctx-pin"> Pin tab</div>
+  <div class="tab-ctx-item" id="tctx-split"> Open in split screen</div>
+  <div class="tab-ctx-item" id="tctx-duplicate"> Duplicate tab</div>
+  <div class="tab-ctx-sep"></div>
+  <div class="tab-ctx-item" id="tctx-close-others"> Close other tabs</div>
+  <div class="tab-ctx-item danger" id="tctx-close"> Close tab</div>
+</div>
+
+
+<div id="modal-overlay">
+  <div id="modal">
+    <div id="modal-title">Edit Shortcut</div>
+    <label>Name</label>
+    <input id="modal-name" type="text" placeholder="Shortcut name" autocomplete="off" spellcheck="false">
+    <label>URL</label>
+    <input id="modal-url" type="text" placeholder="https:
+    <div id="modal-btns">
+      <button id="modal-cancel">Cancel</button>
+      <button id="modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+
+<div id="addr-overlay">
+  <div id="addr-input-wrap">
+    <input id="addr-input" type="text" placeholder="Search Google or enter address…" autocomplete="off" spellcheck="false">
+  </div>
+</div>
+
+
+<div class="browser-chrome">
+
+  
+  <div class="tab-bar" id="tab-bar">
+    <div class="tab-add" id="btn-new-tab" title="New tab">+</div>
+  </div>
+
+  
+  <div class="nav-bar">
+    <div class="nav-btn disabled" id="btn-back" title="Back">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    </div>
+    <div class="nav-btn disabled" id="btn-forward" title="Forward">
+      <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+    </div>
+    <div class="nav-btn" id="btn-reload" title="Reload">
+      <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+    </div>
+
+    
+    <div class="address-bar" id="nav-address-bar">
+      <svg id="nav-lock-icon" viewBox="0 0 24 24" style="display:none;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      <svg id="nav-globe-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      <span id="nav-address-text">Search with Google or enter address</span>
+      <div id="btn-search-icon" title="Edit address" style="margin-left:auto;flex-shrink:0;opacity:0.4;cursor:pointer;display:flex;align-items:center;">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="rgba(255,255,255,0.6)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+      </div>
+    </div>
+
+    
+    <div class="nav-btn" id="btn-bookmark" title="Bookmark this page">
+      <svg viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+    </div>
+
+    <div class="nav-right">
+      
+      <div class="nav-btn" id="btn-downloads" title="Downloads" style="position:relative;">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></svg>
+        <span class="badge" id="dl-badge" style="display:none">0</span>
+      </div>
+      
+      <div class="nav-btn" id="btn-more" title="More options" style="position:relative;">
+        <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <div id="more-dropdown" style="display:none;position:absolute;top:34px;right:0;min-width:200px;border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.6);z-index:9999;">
+          <div class="more-item" id="more-bm-bar">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            Toggle bookmarks bar
+          </div>
+          <div class="more-item" id="more-split">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M3 3h8v18H3zm10 0h8v18h-8z"/></svg>
+            Split screen
+          </div>
+          <div class="more-sep"></div>
+          <div class="more-item" id="more-history">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+            History
+          </div>
+          <div class="more-item" id="more-extensions">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.1 11.9 1 10.5 1S8 2.1 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg>
+            Extensions
+          </div>
+          <div class="more-item" id="more-bm-mgr">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M19 1l-5 5v11l5-4.5V1zm-7 1H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7l-2 2v5H5V4h7l2-2z"/></svg>
+            Bookmarks
+          </div>
+          <div class="more-item" id="more-themes">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            Themes
+          </div>
+          <div class="more-sep"></div>
+          <div class="more-item" id="more-help">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>
+            Keyboard shortcuts
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="bookmarks-bar" id="bookmarks-bar">
+    <div class="bm-add-btn" id="bm-bar-add" title="Add current page to bookmarks bar">+</div>
+  </div>
+
+</div>
+
+
+<div class="content-area" id="content-area">
+
+  
+  <div class="split-pane" id="pane-left">
+    <div class="page" id="home-page">
+      <div id="home-clock">00:00:00</div>
+      <div id="home-date"></div>
+      <div class="proxy-title" id="proxy-title">Endless Proxy</div>
+      <div class="search-wrap">
+        <div class="search-bar-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input id="search-input" type="text" placeholder="Search Google or type a URL" autocomplete="off" spellcheck="false">
+          <button id="search-clear">✕</button>
+        </div>
+        <div id="suggestions"></div>
+      </div>
+      <div class="shortcuts" id="shortcuts-container"></div>
+      <button id="add-shortcut-btn"><span>+</span> Add shortcut</button>
+    </div>
+
+    <div id="web-panel" style="position:absolute;inset:0;display:none;">
+      <iframe id="web-iframe" src="about:blank"
+        allow="fullscreen; autoplay; keyboard; clipboard-read; clipboard-write"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-popups-to-escape-sandbox allow-downloads">
+      </iframe>
+    </div>
+
+    <div id="mims-panel" style="position:absolute;inset:0;display:none;">
+      <iframe id="mims-iframe" src="about:blank"
+        allow="fullscreen; autoplay; keyboard"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-popups-to-escape-sandbox">
+      </iframe>
+    </div>
+  </div>
+
+  
+  <div id="split-divider"></div>
+
+  
+  <div class="split-pane split-pane-right" id="pane-right" style="display:none;flex-direction:column;">
+    <div class="split-toolbar visible" id="split-toolbar">
+      <div class="split-swap-btn" id="split-swap-btn" title="Swap panes">⇄</div>
+      <input class="split-url-bar" id="split-url-input" placeholder="Enter URL or search..." autocomplete="off" spellcheck="false">
+      <div class="split-close-btn" id="split-close-btn" title="Close split">✕</div>
+    </div>
+    <div style="position:relative;flex:1;overflow:hidden;">
+      <iframe id="split-iframe" src="about:blank"
+        style="width:100%;height:100%;border:none;display:block;"
+        allow="fullscreen; autoplay; keyboard; clipboard-read; clipboard-write"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-popups-to-escape-sandbox allow-downloads">
+      </iframe>
+      
+      <div id="split-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--bg-dark);color:rgba(255,255,255,0.3);">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="rgba(0,229,255,0.2)"><path d="M3 3h8v18H3zm10 0h8v18h-8z"/></svg>
+        <div style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:2px;color:rgba(0,229,255,0.4);">SPLIT SCREEN</div>
+        <div style="font-size:12px;font-family:'Rajdhani',sans-serif;">Type a URL above to load a page</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="application/json" id="mims-source">"<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\"/><title>MIMS Portal</title><script async src=\"https:
+
+<script src="endless_proxy.js"></script>
+
+</body>
+</html>
